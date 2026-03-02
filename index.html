@@ -1,39 +1,16 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MitsuOS - Modo Claro</title>
-    <style>
-        /* Define o fundo branco imediatamente */
-        body {
-            background-color: #ffffff;
-            margin: 0;
-            height: 100vh;
+<script>
+    function verificarHorario() {
+        const agora = new Date();
+        const minutosAtuais = (agora.getHours() * 60) + agora.getMinutes();
+
+        const inicioNoite = 1080; // 18:00
+        const fimMadrugada = 270;  // 04:30
+
+        // Se entrar aqui, ele redireciona e PARA o script imediatamente
+        if (minutosAtuais >= inicioNoite || minutosAtuais <= fimMadrugada) {
+            window.location.replace("https://luyzmedeiros.github.io/Fundo-preto-MitsuOS/");
+            return; 
         }
-    </style>
-</head>
-<body>
-
-    <script>
-        function verificarHorarioNoturno() {
-            const agora = new Date();
-            const horas = agora.getHours();
-            const minutos = agora.getMinutes();
-
-            // 18:00h em minutos = 1080
-            // 04:30h em minutos = 270
-            const minutosAtuais = (horas * 60) + minutos;
-            const inicioNoite = 18 * 60; // 1080
-            const fimMadrugada = (4 * 60) + 30; // 270
-
-            // Redireciona se: for DEPOIS das 18:00 OU ANTES das 04:30
-            if (minutosAtuais >= inicioNoite || minutosAtuais <= fimMadrugada) {
-                window.location.href = "https://luyzmedeiros.github.io/Fundo-preto-MitsuOS/";
-            }
-        }
-
-        verificarHorarioNoturno();
-    </script>
-</body>
-</html>
+    }
+    verificarHorario();
+</script>
