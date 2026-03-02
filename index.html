@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Redirect Page</title>
+    <style>
+        body {
+            /* Mude para 'black' se preferir o fundo preto */
+            background-color: white; 
+            margin: 0;
+            padding: 0;
+            overflow: hidden; /* Impede scroll */
+            width: 100vw;
+            height: 100vh;
+            touch-action: none; /* Bloqueia gestos de zoom no mobile */
+        }
+    </style>
+</head>
+<body>
+
+<script>
+    const TARGET_URL = "https://google.com";
+
+    function checkAndRedirect() {
+        const agora = new Date();
+        const hora = agora.getHours();
+        const minuto = agora.getMinutes();
+        
+        // Converte tudo para minutos desde o início do dia para facilitar o cálculo
+        // 18:00 = 1080 min | 04:30 = 270 min
+        const minutosAtuais = (hora * 60) + minuto;
+        const inicio = 18 * 60; 
+        const fim = (4 * 60) + 30;
+
+        // Verifica se o horário está entre 18:00 e 04:30
+        const noHorario = minutosAtuais >= inicio || minutosAtuais <= fim;
+
+        if (noHorario) {
+            // Verifica se há conexão com a internet
+            if (navigator.onLine) {
+                window.location.href = TARGET_URL;
+            } else {
+                console.log("Aguardando internet estabilizar...");
+            }
+        }
+    }
+
+    // Executa a checagem a cada 5 segundos
+    setInterval(checkAndRedirect, 5000);
+
+    // Também tenta executar assim que a internet voltar (evento do navegador)
+    window.addEventListener('online', checkAndRedirect);
+
+    // Execução inicial
+    checkAndRedirect();
+</script>
+</body>
+</html>
