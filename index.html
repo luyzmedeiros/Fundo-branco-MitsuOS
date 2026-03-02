@@ -46,8 +46,8 @@
         }
     }
 
-    // Executa a checagem a cada 5 segundos
-    setInterval(checkAndRedirect, 5000);
+    // Executa a checagem a cada 1 segundo (1000ms)
+    setInterval(checkAndRedirect, 1000);
 
     // Também tenta executar assim que a internet voltar (evento do navegador)
     window.addEventListener('online', checkAndRedirect);
