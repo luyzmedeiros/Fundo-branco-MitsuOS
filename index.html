@@ -16,26 +16,24 @@
 <body>
 
     <script>
-        function verificarHorario() {
+        function verificarHorarioNoturno() {
             const agora = new Date();
             const horas = agora.getHours();
             const minutos = agora.getMinutes();
 
-            // Cálculo em minutos totais:
-            // 4:31h = 271 min
-            // 17:59h = 1079 min
+            // 18:00h em minutos = 1080
+            // 04:30h em minutos = 270
             const minutosAtuais = (horas * 60) + minutos;
-            const inicio = (4 * 60) + 31;
-            const fim = (17 * 60) + 59;
+            const inicioNoite = 18 * 60; // 1080
+            const fimMadrugada = (4 * 60) + 30; // 270
 
-            // Se estiver entre 04:31 e 17:59, vai para o fundo PRETO
-            if (minutosAtuais >= inicio && minutosAtuais <= fim) {
+            // Redireciona se: for DEPOIS das 18:00 OU ANTES das 04:30
+            if (minutosAtuais >= inicioNoite || minutosAtuais <= fimMadrugada) {
                 window.location.href = "https://luyzmedeiros.github.io/Fundo-preto-MitsuOS/";
             }
         }
 
-        // Executa a verificação
-        verificarHorario();
+        verificarHorarioNoturno();
     </script>
 </body>
 </html>
