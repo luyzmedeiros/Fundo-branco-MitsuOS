@@ -6,7 +6,7 @@
     <title>MitsuOS - Redirecionamento</title>
     <style>
         body {
-            background-color: white; /* Fundo padrão */
+            background-color: white;
             margin: 0;
             display: flex;
             justify-content: center;
@@ -18,30 +18,40 @@
 </head>
 <body>
 
-    <p></p>
+    <p id="status">Aguardando horário programado...</p>
 
     <script>
         function verificarHorario() {
             const agora = new Date();
             const horas = agora.getHours();
             const minutos = agora.getMinutes();
+            const segundos = agora.getSeconds(); // Adicionado para precisão
             
-            // Converte tudo para minutos totais desde o início do dia para facilitar a comparação
+            // Converte tudo para minutos totais
             const tempoAtualEmMinutos = (horas * 60) + minutos;
             
-            const limiteInicio = 18 * 60;          // 18:00h em minutos (1080)
-            const limiteFim = (4 * 60) + 30;       // 04:30h em minutos (270)
+            const limiteInicio = 18 * 60;          // 18:00h
+            const limiteFim = (4 * 60) + 30;       // 04:30h
 
-            /* Lógica: Se o tempo atual for MAIOR ou igual a 18h 
-               OU MENOR ou igual a 4:30h, redireciona.
+            /* Lógica: Verifica se está no intervalo de redirecionamento.
             */
             if (tempoAtualEmMinutos >= limiteInicio || tempoAtualEmMinutos <= limiteFim) {
+                console.log("Horário atingido! Redirecionando...");
                 window.location.href = "https://luyzmedeiros.github.io/Fundo-preto-MitsuOS/";
+            } else {
+                // Apenas para feedback visual no console de que o script está rodando
+                console.log(`Hora atual: ${horas}:${minutos}:${segundos} - Fora do intervalo.`);
             }
         }
 
-        // Executa a função ao carregar a página
-        window.onload = verificarHorario;
+        // 1. Executa assim que a página carrega
+        window.onload = () => {
+            verificarHorario();
+            
+            // 2. Verifica a cada 1000 milissegundos (1 segundo)
+            // Assim, se o relógio do PC mudar, ele percebe na hora.
+            setInterval(verificarHorario, 1000);
+        };
     </script>
 </body>
 </html>
