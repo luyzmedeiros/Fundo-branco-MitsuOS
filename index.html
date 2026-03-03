@@ -2,24 +2,46 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MitsuOS - Redirecionamento</title>
     <style>
-        body { background-color: white; margin: 0; }
+        body {
+            background-color: white; /* Fundo padrão */
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-family: sans-serif;
+        }
     </style>
 </head>
 <body>
+
+    <p></p>
+
     <script>
-        function validar() {
+        function verificarHorario() {
             const agora = new Date();
-            const min = (agora.getHours() * 60) + agora.getMinutes();
+            const horas = agora.getHours();
+            const minutos = agora.getMinutes();
             
-            // 18:00 (1080 min) até 04:30 (270 min)
-            if (min >= 1080 || min <= 270) {
+            // Converte tudo para minutos totais desde o início do dia para facilitar a comparação
+            const tempoAtualEmMinutos = (horas * 60) + minutos;
+            
+            const limiteInicio = 18 * 60;          // 18:00h em minutos (1080)
+            const limiteFim = (4 * 60) + 30;       // 04:30h em minutos (270)
+
+            /* Lógica: Se o tempo atual for MAIOR ou igual a 18h 
+               OU MENOR ou igual a 4:30h, redireciona.
+            */
+            if (tempoAtualEmMinutos >= limiteInicio || tempoAtualEmMinutos <= limiteFim) {
                 window.location.href = "https://luyzmedeiros.github.io/Fundo-preto-MitsuOS/";
-            } else {
-                setTimeout(() => { location.reload(); }, 3000);
             }
         }
-        validar();
+
+        // Executa a função ao carregar a página
+        window.onload = verificarHorario;
     </script>
 </body>
 </html>
